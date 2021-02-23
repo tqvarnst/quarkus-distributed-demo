@@ -1,0 +1,25 @@
+version: '3.9'
+services:
+  inventory-service:
+    build:
+      context: inventory-service
+      dockerfile: src/main/docker/Dockerfile.fast-jar
+    image: inventory-service:latest
+  price-service:
+    build:
+      context: price-service
+      dockerfile: src/main/docker/Dockerfile.fast-jar
+    image: price-service:latest
+  product-service:
+    build:
+      context: product-service
+      dockerfile: src/main/docker/Dockerfile.fast-jar
+    image: product-service:latest
+    links:
+      - "inventory-service"
+      - "price-service"
+    ports:
+    - "8080:8080"
+
+
+#docker run --name keycloak -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8180:8080 -p 8543:8443 jboss/keycloak
