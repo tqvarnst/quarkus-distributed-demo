@@ -1,25 +1,46 @@
 version: '3.9'
 services:
+  keycloak:
+    image: jboss/keycloak:12.0.3
+    environment:
+      - KEYCLOAK_USER=admin
+      - KEYCLOAK_PASSWORD=admin
+      - KEYCLOAK_IMPORT=/tmp/quarkus-realm.json
+    ports:
+      - "8180:8080"
+      - "8543:8443"
+    volumes:
+    - ./src/main/resources/quarkus-realm.json:/tmp/quarkus-realm.json
+
   inventory-service:
     build:
       context: inventory-service
       dockerfile: src/main/docker/Dockerfile.fast-jar
     image: inventory-service:latest
+    links:
+      - "keycloak"
+
+
   price-service:
     build:
       context: price-service
       dockerfile: src/main/docker/Dockerfile.fast-jar
     image: price-service:latest
+    links:
+      - "keycloak"
+
   product-service:
     build:
       context: product-service
       dockerfile: src/main/docker/Dockerfile.fast-jar
     image: product-service:latest
     links:
+      - "keycloak"
       - "inventory-service"
       - "price-service"
     ports:
     - "8080:8080"
+
 
 
 #docker run --name keycloak -e KEYCLOAK_USER=admin -e KEYCLOAK_PASSWORD=admin -p 8180:8080 -p 8543:8443 jboss/keycloak
