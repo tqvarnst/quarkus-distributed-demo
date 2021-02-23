@@ -1,13 +1,12 @@
 package com.example.distributeddemo.services;
 
 
-import com.example.distributeddemo.entities.Price;
+import com.example.distributeddemo.entities.Inventory;
 import com.example.distributeddemo.entities.Product;
 import com.example.distributeddemo.repo.ProductRepository;
 import io.quarkus.panache.common.Sort;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
-import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import java.text.ParseException;
@@ -30,6 +29,10 @@ public class ProductService {
     @RestClient
     PriceService priceService;
 
+    @Inject
+    @RestClient
+    InventoryService inventoryService;
+
     @GET
     public List<Product> getAll() {
         List<Product> products = repo.listAll(Sort.ascending("creationDate"));
@@ -51,11 +54,15 @@ public class ProductService {
     @Path("{id}")
     public Product getById(@PathParam("id") Long id) {
         Product product = repo.findById(id);
-        if(product!=null) {
-            product.setPriceDetails(priceService.getPriceBySalesIdAndCountry(product.getSalesId(),"SE"));
-        }
         return product;
     }
+
+    @GET
+    @Path("inventory/{salesId}/{warehouseId}")
+    public Inventory getInventory(@PathParam("salesId") String salesId, @PathParam("warehouseId") String warehouseId) {
+        return inventoryService.getInventoryBySalesIdAndWarehouseId(salesId,warehouseId);
+    }
+
 
     @GET
     @Path("filter")
@@ -63,9 +70,6 @@ public class ProductService {
         Date fromDate = formatter.parse(from);
         Date toDate = formatter.parse(to);
         List<Product> products = repo.find("creationDate > ?1 and creationDate < ?2", fromDate, toDate).list();
-        products.stream().forEach(p -> {
-            p.setPriceDetails(priceService.getPriceBySalesIdAndCountry(p.getSalesId(),"SE"));
-        });
         return products;
     }
 }
