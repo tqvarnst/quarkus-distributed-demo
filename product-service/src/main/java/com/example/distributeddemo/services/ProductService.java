@@ -38,6 +38,7 @@ public class ProductService {
 
     @GET
     @Path("price/{country}")
+    @RolesAllowed("user")
     public List<Product> getProductsWithPrice(@PathParam("country") String country) {
         List<Product> products = repo.listAll(Sort.ascending("creationDate"));
         products.stream().forEach(p -> {

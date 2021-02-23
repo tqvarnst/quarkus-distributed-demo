@@ -14,11 +14,13 @@ public class PriceService {
 
     @GET
     @Path("{salesId}/{country}")
+    @RolesAllowed({"user"})
     public Price getPriceFromSalesId(@PathParam("salesId") String salesId,@PathParam("country") String country) {
         return Price.find("salesId = ?1 and country = ?2",salesId,country).firstResult();
     }
 
     @GET
+    @RolesAllowed({"user"})
     public List<Price> getAllPrices() {
         return Price.listAll();
     }
