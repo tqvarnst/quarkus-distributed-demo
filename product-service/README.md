@@ -31,3 +31,5 @@ Finally, to the the inventory for a product use the salesId of one of the produc
 http :8080/products/inventory/<salesid>/DE
 ```
 
+When you are done run `docker-compose down` to stop and remove the containers.
+
