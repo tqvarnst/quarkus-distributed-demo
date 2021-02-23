@@ -1,51 +1,33 @@
-# product-service project
+# Distributed Pattern Basic REST service using MicroProfile 
 
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: https://quarkus.io/ .
 
-## Running the application in dev mode
+## Running the demo
 
-You can run your application in dev mode that enables live coding using:
 ```shell script
-./mvnw compile quarkus:dev
+./mvnw clean package
+docker-compose up -d --build
 ```
 
-## Packaging and running the application
+This starts 3 different containers matching the application described in the main branch. To verify use curl or HTTPie (used in the instructions)
 
-The application can be packaged using:
 ```shell script
-./mvnw package
-```
-It produces the `product-service-1.0-SNAPSHOT-runner.jar` file in the `/target` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/lib` directory.
-
-If you want to build an _über-jar_, execute the following command:
-```shell script
-./mvnw package -Dquarkus.package.type=uber-jar
+http :8080/products
 ```
 
-The application is now runnable using `java -jar target/product-service-1.0-SNAPSHOT-runner.jar`.
+The above command will list products in the product service without touching price and inventory service.
 
-## Creating a native executable
+To get the same list of products but with price information you can use
 
-You can create a native executable using: 
 ```shell script
-./mvnw package -Pnative
+http :8080/products/price/SE
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using: 
+Finally, to the the inventory for a product use the salesId of one of the products listed previously and run the following command.
+
 ```shell script
-./mvnw package -Pnative -Dquarkus.native.container-build=true
+http :8080/products/inventory/<salesid>/DE
 ```
 
-You can then execute your native executable with: `./target/product-service-1.0-SNAPSHOT-runner`
-
-If you want to learn more about building native executables, please consult https://quarkus.io/guides/maven-tooling.html.
-
-# RESTEasy JSON serialisation using Jackson
-
-<p>This example demonstrate RESTEasy JSON serialisation by letting you list, add and remove quark types from a list.</p>
-<p><b>Quarked!</b></p>
-
-Guide: https://quarkus.io/guides/rest-json
