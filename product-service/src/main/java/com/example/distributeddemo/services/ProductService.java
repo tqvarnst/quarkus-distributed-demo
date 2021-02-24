@@ -44,12 +44,16 @@ public class ProductService {
     @GET
     @Path("price/{country}")
     public Multi<Product> getProductsWithPrice(@PathParam("country") String country) {
-        Multi<Product> products = Multi.createFrom().items(repo.streamAll(Sort.ascending("creationDate")))
-                .onItem().transform(p -> {
-                    p.setPriceDetails(priceService.getPriceBySalesIdAndCountry(p.getSalesId(),country));
-                    return p;
-                });
-        return products;
+        return  Multi.createFrom()
+                    .items(repo.streamAll(Sort.ascending("creationDate")))
+                    .onItem()
+                    .transformToUniAndMerge(p ->
+                        priceService.getPriceBySalesIdAndCountry(p.getSalesId(),country)
+                                .map(p2 -> {
+                                    p.setPriceDetails(p2);
+                                    return p;
+                                })
+                    );
     }
 
 

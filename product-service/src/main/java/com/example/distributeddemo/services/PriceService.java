@@ -1,6 +1,7 @@
 package com.example.distributeddemo.services;
 
 import com.example.distributeddemo.entities.Price;
+import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 
 import javax.ws.rs.GET;
@@ -13,5 +14,5 @@ public interface PriceService {
 
     @GET
     @Path("{salesId}/{country}")
-    public Price getPriceBySalesIdAndCountry(@PathParam("salesId") String salesId, @PathParam("country") String country);
+    public Uni<Price> getPriceBySalesIdAndCountry(@PathParam("salesId") String salesId, @PathParam("country") String country);
 }
