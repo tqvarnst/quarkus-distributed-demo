@@ -2,6 +2,8 @@ package com.example.distributeddemo.services;
 
 import com.example.distributeddemo.entities.Inventory;
 import com.example.distributeddemo.repo.InventoryRepository;
+import io.smallrye.common.annotation.Blocking;
+import io.smallrye.mutiny.Uni;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;
@@ -16,7 +18,8 @@ public class InventoryService {
 
     @GET
     @Path("{salesId}/{warehouseId}")
-    public Inventory getInventoryForWarehouse(@PathParam("salesId") String salesId,@PathParam("warehouseId") String warehouseId) {
-        return repo.getBySalesIdAndWarehouseId(salesId,warehouseId);
+    @Blocking
+    public Uni<Inventory> getInventoryForWarehouse(@PathParam("salesId") String salesId, @PathParam("warehouseId") String warehouseId) {
+        return Uni.createFrom().item(repo.getBySalesIdAndWarehouseId(salesId,warehouseId));
     }
 }

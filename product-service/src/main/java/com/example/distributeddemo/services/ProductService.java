@@ -5,6 +5,8 @@ import com.example.distributeddemo.entities.Inventory;
 import com.example.distributeddemo.entities.Product;
 import com.example.distributeddemo.repo.ProductRepository;
 import io.quarkus.panache.common.Sort;
+import io.smallrye.mutiny.Multi;
+import io.smallrye.mutiny.Uni;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 
 import javax.inject.Inject;
@@ -41,11 +43,12 @@ public class ProductService {
 
     @GET
     @Path("price/{country}")
-    public List<Product> getProductsWithPrice(@PathParam("country") String country) {
-        List<Product> products = repo.listAll(Sort.ascending("creationDate"));
-        products.stream().forEach(p -> {
-            p.setPriceDetails(priceService.getPriceBySalesIdAndCountry(p.getSalesId(),country));
-        });
+    public Multi<Product> getProductsWithPrice(@PathParam("country") String country) {
+        Multi<Product> products = Multi.createFrom().items(repo.streamAll(Sort.ascending("creationDate")))
+                .onItem().transform(p -> {
+                    p.setPriceDetails(priceService.getPriceBySalesIdAndCountry(p.getSalesId(),country));
+                    return p;
+                });
         return products;
     }
 
@@ -59,7 +62,7 @@ public class ProductService {
 
     @GET
     @Path("inventory/{salesId}/{warehouseId}")
-    public Inventory getInventory(@PathParam("salesId") String salesId, @PathParam("warehouseId") String warehouseId) {
+    public Uni<Inventory> getInventory(@PathParam("salesId") String salesId, @PathParam("warehouseId") String warehouseId) {
         return inventoryService.getInventoryBySalesIdAndWarehouseId(salesId,warehouseId);
     }
 
