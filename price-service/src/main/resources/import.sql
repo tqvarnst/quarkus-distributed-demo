@@ -1,7 +1,7 @@
 INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00034','SE','SEK',11.90);
-INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00036','SE','SEK',12.90);
-INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00037','SE','SEK',43.90);
-INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00034','SE','SEK',55.90);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00035','SE','SEK',12.90);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00036','SE','SEK',43.90);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00037','SE','SEK',55.90);
 INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'CANDY_01345','SE','SEK',6.95);
 INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'CANDY_01346','SE','SEK',5.95);
 INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'CANDY_01347','SE','SEK',8.95);
@@ -10,3 +10,16 @@ INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_
 INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'FRUIT_00004','SE','SEK',25.99);
 INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'FRUIT_00005','SE','SEK',12.99);
 INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'FRUIT_00006','SE','SEK',36.99);
+
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00034','DE','EUR',1.19);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00035','DE','EUR',1.29);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00036','DE','EUR',4.39);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'DAIRY_00037','DE','EUR',5.59);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'CANDY_01345','DE','EUR',0.69);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'CANDY_01346','DE','EUR',0.59);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'CANDY_01347','DE','EUR',0.89);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'CANDY_01348','DE','EUR',1.29);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'FRUIT_00003','DE','EUR',2.29);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'FRUIT_00004','DE','EUR',2.59);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'FRUIT_00005','DE','EUR',1.29);
+INSERT INTO Price(id,salesId,country,currency,price) VALUES (nextval('hibernate_sequence'),'FRUIT_00006','DE','EUR',3.69);
